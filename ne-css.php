@@ -113,7 +113,10 @@
             border-width: 1px;
         }
     }
-
+    /* 建立優惠券錯誤訊息 */
+    #error-message{
+        color: red;
+    }
     /* 編輯優惠券類別 */
     /* 更改选中状态的单选按钮颜色 */
     .form-check-input:checked {

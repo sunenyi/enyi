@@ -29,86 +29,13 @@ if ($result->num_rows > 0) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <!-- Bootstrap CSS v5.2.1 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <?php include("../css.php") ?>
     <?php include("ne-css.php") ?>
-    <style>
-        :root {
-            --aside-witch: 200px;
-            --header-height: 50px;
-        }
-
-        .logo {
-            width: var(--aside-witch);
-        }
-
-        .aside-left {
-            padding-top: var(--header-height);
-            width: var(--aside-witch);
-            top: 20px;
-            overflow: auto;
-        }
-
-        .main-content {
-            margin: var(--header-height) 0 0 var(--aside-witch);
-        }
-    </style>
 </head>
 
 <body>
-    <header class="main-header bg-dark d-flex fixed-top shadow justify-content-between align-items-center">
-        <a href="" class="p-3 bg-black text-white text-decoration-none">
-            tea
-        </a>
-
-        <div class="text-white me-3">
-            Hi,adain
-            <a href="" class="btn btn-dark">登入</a>
-            <a href="" class="btn btn-dark">登出</a>
-        </div>
-    </header>
-    <aside class="aside-left position-fixed bg-white border-end vh-100 ">
-        <ul class="list-unstyled">
-            <li>
-                <a class="d-block p-2 px-3 text-decoration-none" href="">
-                    <i class="bi bi-house-fill me-2"></i>首頁
-                </a>
-            </li>
-            <li>
-                <a class="d-block p-2 px-3 text-decoration-none" href="">
-                    <i class="bi bi-cart4 me-2"></i></i>商品
-                </a>
-            </li>
-            <li>
-                <a class="d-block p-2 px-3 text-decoration-none" href="">
-                    <i class="bi bi-cash me-2"></i>優惠券
-                </a>
-            </li>
-            <li>
-                <a class="d-block p-2 px-3 text-decoration-none" href="">
-                    <i class="bi bi-flag me-2"></i>課程
-                </a>
-            </li>
-            <li>
-                <a class="d-block p-2 px-3 text-decoration-none" href="">
-                    <i class="bi bi-clipboard2-data me-2"></i> 訂單
-                </a>
-            </li>
-            <li>
-                <a class="d-block p-2 px-3 text-decoration-none" href="">
-                    <i class="bi bi-book me-2"></i> 文章管理
-                </a>
-            </li>
-            <li>
-                <a class="d-block p-2 px-3 text-decoration-none" href="">
-                    <i class="bi bi-paypal me-2"></i> 付款方式
-                </a>
-            </li>
-
-        </ul>
-    </aside>
+    <!-- header、aside -->
+    <?php include("../dashboard-comm.php") ?>
     <main class="main-content p-3">
         <div class="d-flex justify-content-between">
             <h1>編輯優惠券</h1>
@@ -139,13 +66,13 @@ if ($result->num_rows > 0) {
                                 <tr>
                                     <th>優惠券名稱</th>
                                     <td>
-                                        <input type="text" class="form-control" name="name" value="<?= $row["name"] ?>">
+                                        <input type="text" class="form-control" name="name" value="<?= $row["name"] ?>" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>優惠券代碼</th>
                                     <td>
-                                        <input type="text" class="form-control" name="code" id="coupon-code" value="<?= $row["code"] ?>">
+                                        <input type="text" class="form-control" name="code" id="coupon-code" value="<?= $row["code"] ?>" required>
 
                                         <button type="button" class="btn btn-outline-secondary" onclick="fillRandomCode()">生成代碼</button>
                                     </td>
@@ -154,13 +81,13 @@ if ($result->num_rows > 0) {
                                     <th>優惠券種類</th>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="category" id="amount" value="金額" <?php if ($row["category"] == "金額") : ?>checked<?php endif ?>>
+                                            <input class="form-check-input" type="radio" name="category" id="amount" value="金額" <?php if ($row["category"] == "金額") : ?>checked<?php endif ?> required>
                                             <label class="form-check-label" for="amount">
                                                 金額
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="category" id="percent" value="百分比" <?php if ($row["category"] == "百分比") : ?>checked<?php endif ?>>
+                                            <input class="form-check-input" type="radio" name="category" id="percent" value="百分比" <?php if ($row["category"] == "百分比") : ?>checked<?php endif ?> required>
                                             <label class="form-check-label" for="percent">
                                                 百分比
                                             </label>
@@ -170,32 +97,33 @@ if ($result->num_rows > 0) {
                                 <tr>
                                     <th>折扣面額</th>
                                     <td>
-                                        <input type="text" class="form-control" name="discount" value="<?= $row["discount"] ?>">
+                                        <input type="text" class="form-control" name="discount" value="<?= $row["discount"] ?>" required>
+                                        <div id="error-message"></div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>最低消費金額</th>
                                     <td>
-                                        <input type="text" class="form-control" name="min_spend_amount" value="<?= $row["min_spend_amount"] ?>">
+                                        <input type="text" class="form-control" name="min_spend_amount" value="<?= $row["min_spend_amount"] ?>" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>優惠券數量</th>
                                     <td>
-                                        <input type="text" class="form-control" name="stock" value="<?= $row["stock"] ?>">
+                                        <input type="text" class="form-control" name="stock" value="<?= $row["stock"] ?>" required>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <th>開始時間</th>
                                     <td>
-                                        <input type="datetime-local" class="form-control" name="start_time" id="start_time" value="<?= $row["start_time"] ?>">
+                                        <input type="datetime-local" class="form-control" name="start_time" id="start_time" value="<?= $row["start_time"] ?>" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>結束時間</th>
                                     <td>
-                                        <input type="datetime-local" class="form-control" name="end_time" id="end_time" value="<?= $row["end_time"] ?>">
+                                        <input type="datetime-local" class="form-control" name="end_time" id="end_time" value="<?= $row["end_time"] ?>" required>
                                     </td>
                                 </tr>
 
@@ -215,6 +143,7 @@ if ($result->num_rows > 0) {
 
 
     </main>
+    <?php include("../js.php") ?>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var startTimeInput = document.getElementById('start_time');
@@ -229,6 +158,26 @@ if ($result->num_rows > 0) {
             startTimeInput.addEventListener('change', function() {
                 endTimeInput.min = startTimeInput.value;
 
+            });
+            var amountRadio = document.getElementById('amount');
+            var percentRadio = document.getElementById('percent');
+            var discountInput = document.querySelector('input[name="discount"]');
+            var couponForm = document.querySelector('form');
+
+            couponForm.addEventListener('submit', function(event) {
+                var discountValue = parseFloat(discountInput.value);
+                var categoryChecked = document.querySelector('input[name="category"]:checked');
+
+                var errorMeg = ""; // 初始化错误消息
+                if (categoryChecked && categoryChecked.value === '金額' && discountValue <= 1) {
+                    errorMeg = "金額折扣應大於1";
+                    event.preventDefault();
+                } else if (categoryChecked && categoryChecked.value === '百分比' && (discountValue <= 0 || discountValue >= 1)) {
+                    errorMeg = "百分比折扣應為0到1之間的小數";
+                    event.preventDefault();
+                }
+                // 将错误消息插入到页面中适当位置
+                document.getElementById('error-message').innerText = errorMeg;
             });
         });
 

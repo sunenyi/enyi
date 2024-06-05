@@ -151,6 +151,9 @@ if (isset($_GET["search"])) {
   $sql = "SELECT * FROM coupons WHERE valid=1";
   header("location: coupons.php?page=1&order=id_asc&category=&status=");
 }
+
+
+
 $result = $conn->query($sql);
 $rows = $result->fetch_all(MYSQLI_ASSOC);
 $userCount = $result->num_rows;
@@ -168,6 +171,12 @@ foreach ($rows as $coupon) {
   $updateStatusSQL = "UPDATE coupons SET status='$status' WHERE id=$id";
   $conn->query($updateStatusSQL);
 }
+//如果沒寫這段，status在排序的時候會自動帶入值
+if($_GET["status"]==''){
+
+  $status='';
+}
+
 ?>
 
 <!doctype html>
@@ -260,21 +269,21 @@ foreach ($rows as $coupon) {
           <thead class="table-header">
             <!-- //⭐︎⭐︎⭐︎ 排序 -->
             <th>ID<a href="?page=<?= $page ?>&order=<?= $order == 'id_asc' ? 'id_desc' : 'id_asc' ?>&category=<?= $type ?>&status=<?= $status ?>"><i class="fa-solid fa-sort sort-icon"></i></a></th>
-            <th>優惠券名稱<a href="?page=<?= $page ?>&order=<?= $order == 'name_asc' ? 'name_desc' : 'name_asc' ?>&category=<?= $type ?>"><i class="fa-solid fa-sort sort-icon"></i></a></th>
-            <th>代碼<a href="?page=<?= $page ?>&order=<?= $order == 'code_asc' ? 'code_desc' : 'code_asc' ?>&category=<?= $type ?>"><i class="fa-solid fa-sort sort-icon"></i></a>
+            <th>優惠券名稱<a href="?page=<?= $page ?>&order=<?= $order == 'name_asc' ? 'name_desc' : 'name_asc' ?>&category=<?= $type ?>&status=<?= $status ?>"><i class="fa-solid fa-sort sort-icon"></i></a></th>
+            <th>代碼<a href="?page=<?= $page ?>&order=<?= $order == 'code_asc' ? 'code_desc' : 'code_asc' ?>&category=<?= $type ?>&status=<?= $status ?>"><i class="fa-solid fa-sort sort-icon"></i></a>
             </th>
-            <th>種類<a href="?page=<?= $page ?>&order=<?= $order == 'category_asc' ? 'category_desc' : 'category_asc' ?>&category=<?= $type ?>"><i class="fa-solid fa-sort sort-icon"></i></a>
+            <th>種類<a href="?page=<?= $page ?>&order=<?= $order == 'category_asc' ? 'category_desc' : 'category_asc' ?>&category=<?= $type ?>&status=<?= $status ?>"><i class="fa-solid fa-sort sort-icon"></i></a>
             </th>
-            <th>折扣面額<a href="?page=<?= $page ?>&order=<?= $order == 'discount_asc' ? 'discount_desc' : 'discount_asc' ?>&category=<?= $type ?>"><i class="fa-solid fa-sort sort-icon"></i></a></th>
-            <th>低消金額<a href="?page=<?= $page ?>&order=<?= $order == 'min_spend_amount_asc' ? 'min_spend_amount_desc' : 'min_spend_amount_asc' ?>&category=<?= $type ?>"><i class="fa-solid fa-sort sort-icon"></i></a>
+            <th>折扣面額<a href="?page=<?= $page ?>&order=<?= $order == 'discount_asc' ? 'discount_desc' : 'discount_asc' ?>&category=<?= $type ?>&status=<?= $status ?>"><i class="fa-solid fa-sort sort-icon"></i></a></th>
+            <th>低消金額<a href="?page=<?= $page ?>&order=<?= $order == 'min_spend_amount_asc' ? 'min_spend_amount_desc' : 'min_spend_amount_asc' ?>&category=<?= $type ?>&status=<?= $status ?>"><i class="fa-solid fa-sort sort-icon"></i></a>
             </th>
-            <th>數量<a href="?page=<?= $page ?>&order=<?= $order == 'stock_asc' ? 'stock_desc' : 'stock_asc' ?>&category=<?= $type ?>"><i class="fa-solid fa-sort sort-icon"></i></a>
+            <th>數量<a href="?page=<?= $page ?>&order=<?= $order == 'stock_asc' ? 'stock_desc' : 'stock_asc' ?>&category=<?= $type ?>&status=<?= $status ?>"><i class="fa-solid fa-sort sort-icon"></i></a>
             </th>
-            <th>開始時間<a href="?page=<?= $page ?>&order=<?= $order == 'start_time_asc' ? 'start_time_desc' : 'start_time_asc' ?>&category=<?= $type ?>"><i class="fa-solid fa-sort sort-icon"></i></a>
+            <th>開始時間<a href="?page=<?= $page ?>&order=<?= $order == 'start_time_asc' ? 'start_time_desc' : 'start_time_asc' ?>&category=<?= $type ?>&status=<?= $status ?>"><i class="fa-solid fa-sort sort-icon"></i></a>
             </th>
-            <th>結束時間<a href="?page=<?= $page ?>&order=<?= $order == 'end_time_asc' ? 'end_time_desc' : 'end_time_asc' ?>&category=<?= $type ?>"><i class="fa-solid fa-sort sort-icon"></i></a>
+            <th>結束時間<a href="?page=<?= $page ?>&order=<?= $order == 'end_time_asc' ? 'end_time_desc' : 'end_time_asc' ?>&category=<?= $type ?>&status=<?= $status ?>"><i class="fa-solid fa-sort sort-icon"></i></a>
             </th>
-            <th>狀態<a href="?page=<?= $page ?>&order=<?= $order == 'status_asc' ? 'status_desc' : 'status_asc' ?>&category=<?= $type ?>"><i class="fa-solid fa-sort sort-icon"></i></a>
+            <th>狀態<a href="?page=<?= $page ?>&order=<?= $order == 'status_asc' ? 'status_desc' : 'status_asc' ?>&category=<?= $type ?>&status=<?= $status ?>"><i class="fa-solid fa-sort sort-icon"></i></a>
             </th>
 
             <th></th>
@@ -326,7 +335,7 @@ foreach ($rows as $coupon) {
               <?php for ($i = 1; $i <= $pageCount; $i++) : ?>
                 <li class="page-item
                       
-                        <?php if ($i == $page) echo "active" ?>"><a class="page-link" href="?page=<?php echo $i; ?>&order=<?php echo $order; ?>&category=<?php echo $type; ?>"><?= $i ?></a></li>
+                        <?php if ($i == $page) echo "active" ?>"><a class="page-link" href="?page=<?php echo $i; ?>&order=<?php echo $order; ?>&category=<?php echo $type; ?>&status=<?php echo $status; ?>"><?= $i ?></a></li>
               <?php endfor; ?>
             </ul>
           </nav>
