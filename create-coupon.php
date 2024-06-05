@@ -7,87 +7,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <!-- Bootstrap CSS v5.2.1 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <?php include("../css.php") ?>
   <?php include("ne-css.php") ?>
 
-  <style>
-    :root {
-      --aside-witch: 200px;
-      --header-height: 50px;
-    }
-
-    .logo {
-      width: var(--aside-witch);
-    }
-
-    .aside-left {
-      padding-top: var(--header-height);
-      width: var(--aside-witch);
-      top: 20px;
-      overflow: auto;
-    }
-
-    .main-content {
-      margin: var(--header-height) 0 0 var(--aside-witch);
-    }
-  </style>
 </head>
 
 <body>
-  <header class="main-header bg-dark d-flex fixed-top shadow justify-content-between align-items-center">
-    <a href="" class="p-3 bg-black text-white text-decoration-none">
-      tea
-    </a>
-
-    <div class="text-white me-3">
-      Hi,adain
-      <a href="" class="btn btn-dark">登入</a>
-      <a href="" class="btn btn-dark">登出</a>
-    </div>
-  </header>
-  <aside class="aside-left position-fixed bg-white border-end vh-100 ">
-    <ul class="list-unstyled">
-      <li>
-        <a class="d-block p-2 px-3 text-decoration-none" href="">
-          <i class="bi bi-house-fill me-2"></i>首頁
-        </a>
-      </li>
-      <li>
-        <a class="d-block p-2 px-3 text-decoration-none" href="">
-          <i class="bi bi-cart4 me-2"></i></i>商品
-        </a>
-      </li>
-      <li>
-        <a class="d-block p-2 px-3 text-decoration-none" href="">
-          <i class="bi bi-cash me-2"></i>優惠券
-        </a>
-      </li>
-      <li>
-        <a class="d-block p-2 px-3 text-decoration-none" href="">
-          <i class="bi bi-flag me-2"></i>課程
-        </a>
-      </li>
-      <li>
-        <a class="d-block p-2 px-3 text-decoration-none" href="">
-          <i class="bi bi-clipboard2-data me-2"></i> 訂單
-        </a>
-      </li>
-      <li>
-        <a class="d-block p-2 px-3 text-decoration-none" href="">
-          <i class="bi bi-book me-2"></i> 文章管理
-        </a>
-      </li>
-      <li>
-        <a class="d-block p-2 px-3 text-decoration-none" href="">
-          <i class="bi bi-paypal me-2"></i> 付款方式
-        </a>
-      </li>
-
-    </ul>
-  </aside>
+  <!-- header、aside -->
+  <?php include("../dashboard-comm.php") ?>
   <main class="main-content p-3">
     <div class="d-flex justify-content-between">
       <h1>新增優惠券</h1>
@@ -107,7 +34,7 @@
       <form action="doCreateCoupon.php" method="post">
         <div class="mb-2">
           <label for="" class="form-label">優惠券名稱</label>
-          <input type="text" class="form-control" name="name">
+          <input type="text" class="form-control" name="name" required>
         </div>
         <div class="mb-2">
           <label for="" class="form-label">優惠券代碼</label>
@@ -124,13 +51,13 @@
           </select> -->
           <div class="d-flex">
             <div class="form-check col-2">
-              <input class="form-check-input" type="radio" name="category" id="amount" value="金額">
+              <input class="form-check-input" type="radio" name="category" id="amount" value="金額" required>
               <label class="form-check-label" for="amount">
                 金額
               </label>
             </div>
             <div class="form-check col-2">
-              <input class="form-check-input" type="radio" name="category" id="percent" value="百分比">
+              <input class="form-check-input" type="radio" name="category" id="percent" value="百分比" required>
               <label class="form-check-label" for="percent">
                 百分比
               </label>
@@ -139,15 +66,15 @@
         </div>
         <div class="mb-2">
           <label for="" class="form-label">折扣面額</label>
-          <input type="text" class="form-control" name="discount">
+          <input type="text" class="form-control" name="discount" required>
         </div>
         <div class="mb-2">
           <label for="" class="form-label">最低消費金額</label>
-          <input type="text" class="form-control" name="min_spend_amount">
+          <input type="text" class="form-control" name="min_spend_amount" required>
         </div>
         <div class="mb-2">
           <label for="" class="form-label">優惠券數量</label>
-          <input type="text" class="form-control" name="stock">
+          <input type="text" class="form-control" name="stock" required>
         </div>
         <!-- <div class="mb-2 ">
           <label for="" class="form-label">優惠券狀態</label>
@@ -170,11 +97,11 @@
           <div class="row">
             <div class="col-6">
               <label for="" class="form-label m-2">開始時間</label>
-              <input type="datetime-local" class="form-control" name="start_time" id="start_time">
+              <input type="datetime-local" class="form-control" name="start_time" id="start_time" required>
             </div>
             <div class="col-6">
               <label for="" class="form-label m-2">結束時間</label>
-              <input type="datetime-local" class="form-control" name="end_time" id="end_time">
+              <input type="datetime-local" class="form-control" name="end_time" id="end_time" required>
             </div>
 
 
@@ -186,7 +113,8 @@
     </div>
 
   </main>
-  
+  <?php include("../js.php") ?>
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var startTimeInput = document.getElementById('start_time');
